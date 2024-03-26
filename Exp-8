@@ -1,0 +1,36 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.sql.*"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <% Connection c=DriverManager.getConnection("jdbc:derby://localhost:1527/Books");
+        Statement st=c.createStatement();%>
+       <table border="solid 2px red">
+        <tr><th>title</th> <th>value</th></tr> 
+
+       <% ResultSet rst=st.executeQuery("select count(*) from Books");%>
+       <tr><td> <%out.println("number of books");%> </td>
+        <% while(rst.next())
+        {%>
+        <td> <% out.println(rst.getInt(1));%>  </td></tr>
+              <%}%>
+        <% ResultSet rt=st.executeQuery("select avg(price) from Books");%>
+        <tr><td><%out.println("average of the books");%></td>
+        <% while(rt.next())
+        {%>
+        <td> <% out.println(rt.getInt(1));%>  </td></tr>
+  <%}%>
+          
+      <% ResultSet rslt=st.executeQuery("select max(price) from Books");%>
+         <tr><td><%out.println("maximun of the books");%> </td>
+       <% while(rslt.next())
+        {%>
+                <td> <% out.println(rslt.getInt(1));%>  </td></tr>
+
+       <%}%>
+       </table>
+    </body>
+</html>
